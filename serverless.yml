@@ -1,0 +1,46 @@
+service: mini-proj-resume-builder
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  memorySize: 512
+  timeout: 120
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://readyresume.help
+        - https://selvkarthik.github.io
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+        - Cookie
+        - X-Requested-With
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+      allowCredentials: true
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    MONGODB_DB: ${env:MONGODB_DB}
+    SESSION_SECRET: ${env:SESSION_SECRET}
+    OPENROUTER_API_KEY: ${env:OPENROUTER_API_KEY}
+    DEEPSEEK_API_KEY: ${env:DEEPSEEK_API_KEY}
+    FRONTEND_URL: ${env:FRONTEND_URL}
+    NODE_ENV: production
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - httpApi: ANY /
+      - httpApi: ANY /{proxy+}

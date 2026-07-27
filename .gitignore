@@ -1,0 +1,17 @@
+node_modules/
+.env
+dist/
+build/
+.tmp/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+*.pem
+.serverless/
+.serverless_plugins/
+.aws/
+credentials
+*.pem
